@@ -31,7 +31,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "../types/type";
 import { getProducts } from "./productApi"; 
 import ProductCard from "../components/ui/ProductCard";
-import CategoryFilter from "../components/ui/CategoryFilter";
+import ResultFilter from "../components/ui/ResultFilter";
 
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -46,7 +46,7 @@ function ProductList() {
   return (
     <div>
       <div>
-        <CategoryFilter />
+        <ResultFilter />
       </div>
       <div className="bg-blue-200 p-2">
         <p className="text-xl font-bold">Tất cả sản phẩm</p>
