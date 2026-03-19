@@ -9,7 +9,7 @@ function ProductCard(props: Product) {
     <div>
       <div className="relative bg-white rounded-lg hover:bg-gray-100">
         <div className="">
-          <img src={props.image} alt="smartphone" />
+          <img src={props.thumbnail} alt="smartphone" />
           <h1 className="font-bold">
             <p>
               <span>{props.title}</span> | Chính hãng

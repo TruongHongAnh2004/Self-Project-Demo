@@ -1,8 +1,8 @@
-function ProductDetailPage(){
+function ProductDetail(){
     return(
         <div>
             
         </div>
     )
 }
-export default ProductDetailPage
+export default ProductDetail

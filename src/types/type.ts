@@ -4,7 +4,7 @@ export interface Product{
     title: string;
     price: number;
     rating: number;
-    image: string;
+    thumbnail: string;
     discountPercentage: number;
     returnPolicy: string; // chinh sach hoan tra
 }
