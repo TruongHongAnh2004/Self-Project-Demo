@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     element: <MainLayout />,  // layout cha
     children: [
       {
-        path: "products",
+        path: "",
         element: <ProductListPage />,
       },
       {
@@ -18,4 +18,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+]); 

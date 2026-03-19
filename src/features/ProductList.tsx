@@ -36,7 +36,11 @@ function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) => setProducts(data));
+    getProducts().then((data) =>
+    {
+      setProducts(data);
+    })
+      
   }, []);
 
   return (
