@@ -1,6 +1,10 @@
+import ProductDetail from "../features/ProductDetail"
+
 function ProductDetailPage() {
     return(
-        <div></div>
+        <div>
+            <ProductDetail/>
+        </div>
     )
 }
 export default ProductDetailPage

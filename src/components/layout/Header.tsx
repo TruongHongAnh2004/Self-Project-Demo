@@ -1,4 +1,4 @@
-import CategoryFilter from "../ui/CategoryFilter";
+//import CategoryFilter from "../ui/CategoryFilter";
 import SearchInput from "../ui/SearchInput";
 
 function Header() {
@@ -7,9 +7,7 @@ function Header() {
       <div className="bg-pink-300 py-2.5 px-1">
         <SearchInput />
       </div>
-      <div>
-        <CategoryFilter />
-      </div>
+      
     </div>
   );
 }

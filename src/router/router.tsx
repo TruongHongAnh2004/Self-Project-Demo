@@ -6,16 +6,16 @@ import ProductDetailPage from "../page/ProductDetailPage";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,  // layout cha
+    element: <MainLayout />, // layout cha
     children: [
       {
         path: "",
         element: <ProductListPage />,
       },
       {
-        path: "products/:id",
+        path: "/:id",
         element: <ProductDetailPage />,
       },
     ],
   },
-]); 
+]);
