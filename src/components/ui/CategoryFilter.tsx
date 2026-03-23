@@ -1,8 +1,10 @@
-type Props = {
-  onSelect: (value: string) => void
-}
 
-function CategoryFilter({ onSelect }: Props) {
+type Props = {
+  onSelect: (brand: string) => void;
+  onSortChange: (sort: "asc" | "desc") => void;
+};
+
+function CategoryFilter({ onSelect, onSortChange }: Props ) {
   return (
     <div className="w-64 bg-white p-4 rounded-xl ">
       <div className="mb-6">
@@ -25,12 +27,12 @@ function CategoryFilter({ onSelect }: Props) {
         </h1>
 
         <div className="flex flex-col gap-2 text-gray-700">
-          <p className="cursor-pointer hover:text-red-500 hover:font-semibold">
+          <button onClick={() => onSortChange("asc")} className="cursor-pointer hover:text-red-500 hover:font-semibold">
             Tăng dần
-          </p>
-          <p className="cursor-pointer hover:text-red-500 hover:font-semibold">
+          </button>
+          <button onClick={() => onSortChange("desc")} className="cursor-pointer hover:text-red-500 hover:font-semibold">
             Giảm dần
-          </p>
+          </button>
         </div>
       </div>
     </div>

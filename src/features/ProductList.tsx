@@ -29,26 +29,44 @@
 
 import { useEffect, useState } from "react";
 import type { Product } from "../types/type";
-import { getProducts } from "./productApi"; 
+import { getProductByCategory, getProductBySort, getProducts } from "./productApi"; 
 import ProductCard from "../components/ui/ProductCard";
-import ResultFilter from "../components/ui/ResultFilter";
+import CategoryFilter from "../components/ui/CategoryFilter";
 
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [sort, setSort] = useState<"asc" | "desc" | "">("");
+  const [brand, setBrand] = useState<string>("");
 
-  useEffect(() => {
-    getProducts().then((data) =>
-    {
+  //hiển thị tất cả sản phẩm 
+ useEffect(() => {
+    const fetchData = async () => {
+      let data;
+
+      if (brand) {
+        data = await getProductByCategory(brand);
+      } else if (sort) {
+        data = await getProductBySort(sort);
+      } else {
+        data = await getProducts();
+      }
+
       setProducts(data);
-    })
-  }, []);
+    };
+
+    fetchData();
+  }, [sort, brand]);
+
+
 
   return (
-    <div>
-      <div>
-        <ResultFilter />
-      </div>
-      <div className="bg-blue-200 p-2">
+     <div className="flex gap-4">
+      <CategoryFilter 
+        onSelect={(b) => setBrand(b)}
+        onSortChange={(s) => setSort(s)}
+      />
+
+      <div className="bg-blue-100 p-2 flex-1">
         <p className="text-xl font-bold">Tất cả sản phẩm</p>
 
         <div className="flex flex-wrap justify-center gap-5 p-6">
