@@ -29,16 +29,22 @@
 
 import { useEffect, useState } from "react";
 import type { Product } from "../types/type";
-import { getProductByCategory, getProductBySort, getProducts } from "./productApi"; 
+import { getProductByCategory, getProductBySearch, getProductBySort, getProducts } from "./productApi"; 
 import ProductCard from "../components/ui/ProductCard";
 import CategoryFilter from "../components/ui/CategoryFilter";
+import { useOutletContext } from "react-router-dom";
 
+type OutletContextType = {
+  search: string;
+};
 function ProductList() {
+
+  const { search } = useOutletContext<OutletContextType>();
   const [products, setProducts] = useState<Product[]>([]);
   const [sort, setSort] = useState<"asc" | "desc" | "">("");
   const [brand, setBrand] = useState<string>("");
 
-  //hiển thị tất cả sản phẩm 
+  //hiển thị tất cả sản phẩm, filter brand, price, search 
  useEffect(() => {
     const fetchData = async () => {
       let data;
@@ -47,7 +53,10 @@ function ProductList() {
         data = await getProductByCategory(brand);
       } else if (sort) {
         data = await getProductBySort(sort);
-      } else {
+      } else if(search) {
+        data = await getProductBySearch(search);
+      }
+      else {
         data = await getProducts();
       }
 
@@ -55,7 +64,7 @@ function ProductList() {
     };
 
     fetchData();
-  }, [sort, brand]);
+  }, [sort, brand, search]);
 
 
 

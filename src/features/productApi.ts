@@ -25,3 +25,10 @@ export const getProductByCategory = async (brand: string) => {
   const data = await res.json();
   return data.products;
 };
+
+//tìm kiếm trên thanh 
+export const getProductBySearch = async (search: string) => {
+  const res = await fetch(`https://dummyjson.com/products/search?q=${search}`)
+  const data = await res.json();
+  return data.products;
+}

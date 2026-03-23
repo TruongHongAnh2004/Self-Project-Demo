@@ -1,11 +1,13 @@
-//import CategoryFilter from "../ui/CategoryFilter";
 import SearchInput from "../ui/SearchInput";
-
-function Header() {
+type Props = {
+  onSearch: (text: string) => void;
+};
+function Header({ onSearch }: Props) {
+  
   return (
     <div>
       <div className="bg-pink-300 py-2.5 px-1">
-        <SearchInput />
+        <SearchInput onSearch={onSearch}/>
       </div>
       
     </div>

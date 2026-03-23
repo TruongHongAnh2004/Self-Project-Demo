@@ -1,12 +1,30 @@
+import { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-function SearchInput() {
+
+type Props = {
+  onSearch: (search: string) => void;
+};
+
+function SearchInput({ onSearch }: Props) {
+  const [inputText, setInputText] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // tránh reload page
+    onSearch(inputText); // gửi text lên cha
+  };
   return (
     <div className="flex items-center justify-between p-2">
       <div className="text-xl font-bold text-white">Cửa hàng điện thoại</div>
-      <form action="search" className="flex flex-1 mx-6 bg-white rounded-md">
+      <form
+        action="search"
+        onSubmit={handleSubmit}
+        className="flex flex-1 mx-6 bg-white rounded-md"
+      >
         <input
           type="text"
           name="message"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
           placeholder="Bạn muốn mua gì?"
           className="w-full px-4 py-2 rounded-l-md text-black outline-none"
         />
