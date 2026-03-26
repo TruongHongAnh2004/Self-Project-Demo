@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import type { Product } from "../../types/type";
 import { AiOutlineStar } from "react-icons/ai";
 
+
 function ProductCard(props: Product) {
   const number = props.price * 25000;
   const vnd = number.toLocaleString("vi-VN");

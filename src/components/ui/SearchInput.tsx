@@ -1,45 +1,30 @@
-import { useState } from "react";
+
 import { AiOutlineUser } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
+import { setSearch } from "../../features/productSlice";
 
-type Props = {
-  onSearch: (search: string) => void;
-};
 
-function SearchInput({ onSearch }: Props) {
-  const [inputText, setInputText] = useState("");
+function SearchInput() {
+  const search = useSelector((state: RootState) => state.products.search);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // tránh reload page
-    onSearch(inputText); // gửi text lên cha
-  };
   return (
     <div className="flex items-center justify-between p-2">
       <div className="text-xl font-bold text-white">Cửa hàng điện thoại</div>
-      <form
-        action="search"
-        onSubmit={handleSubmit}
-        className="flex flex-1 mx-6 bg-white rounded-md"
-      >
+
+      <form className="flex flex-1 mx-6 bg-white rounded-md">
         <input
           type="text"
-          name="message"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          value={search}
+          onChange={(e) => dispatch(setSearch(e.target.value))}
           placeholder="Bạn muốn mua gì?"
           className="w-full px-4 py-2 rounded-l-md text-black outline-none"
         />
-        <button
-          type="submit"
-          className="bg-blue-300 px-4 rounded-r-md hover:bg-blue-800"
-        >
-          Tìm kiếm
-        </button>
       </form>
 
       <div className="flex items-center gap-6">
-        <div className="cursor-pointer hover:text-gray-200">
-          <AiOutlineUser size={30} />
-        </div>
+        <AiOutlineUser size={30} />
       </div>
     </div>
   );

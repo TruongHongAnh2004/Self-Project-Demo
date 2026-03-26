@@ -27,59 +27,57 @@
 // }
 //export default ProductList;
 
-import { useEffect, useState } from "react";
-import type { Product } from "../types/type";
-import { getProductByCategory, getProductBySearch, getProductBySort, getProducts } from "./productApi"; 
+import { useEffect } from "react";
+import { getProducts } from "./productApi";
 import ProductCard from "../components/ui/ProductCard";
 import CategoryFilter from "../components/ui/CategoryFilter";
-import { useOutletContext } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../app/store";
+import { setBrands, setProducts, setSort } from "./productSlice";
 
-type OutletContextType = {
-  search: string;
-};
+
 function ProductList() {
+  const search = useSelector((state: RootState) => state.products.search);
+  const products = useSelector((state: RootState) => state.products.products);
+  const sort = useSelector((state: RootState) => state.products.sort);
+  const brands = useSelector((state: RootState) => state.products.brands);
 
-  const { search } = useOutletContext<OutletContextType>();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [sort, setSort] = useState<"asc" | "desc" | "">("");
-  const [brand, setBrand] = useState<string>("");
+  const dispatch = useDispatch();
+  const filteredProducts = products
+    .filter((p) => {
+      if (!search || typeof search != "string") return true;
+      return p.title.toLowerCase().includes(search.toLowerCase());
+    })
+    .filter(
+      (p) => brands.length === 0 || brands.includes(p.brand.toUpperCase()),
+    )
+    .sort((a, b) => {
+      if (sort === "asc") return a.price - b.price;
+      if (sort === "desc") return b.price - a.price;
+      return 0;
+    });
 
-  //hiển thị tất cả sản phẩm, filter brand, price, search 
- useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
-      let data;
-
-      if (brand) {
-        data = await getProductByCategory(brand);
-      } else if (sort) {
-        data = await getProductBySort(sort);
-      } else if(search) {
-        data = await getProductBySearch(search);
-      }
-      else {
-        data = await getProducts();
-      }
-
-      setProducts(data);
+      const data = await getProducts();
+      dispatch(setProducts(data));
     };
 
     fetchData();
-  }, [sort, brand, search]);
-
-
+  }, [dispatch]);
 
   return (
-     <div className="flex gap-4">
-      <CategoryFilter 
-        onSelect={(b) => setBrand(b)}
-        onSortChange={(s) => setSort(s)}
+    <div className="flex gap-4">
+      <CategoryFilter
+        onSelect={(b) => dispatch(setBrands(b))}
+        onSortChange={(s) => dispatch(setSort(s))}
       />
 
       <div className="bg-blue-100 p-2 flex-1">
         <p className="text-xl font-bold">Tất cả sản phẩm</p>
 
         <div className="flex flex-wrap justify-center gap-5 p-6">
-          {products.map((p) => (
+          {filteredProducts.map((p) => (
             <ProductCard key={p.id} {...p} />
           ))}
         </div>

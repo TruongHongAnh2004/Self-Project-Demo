@@ -1,16 +1,20 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useState } from "react";
+
 
 const MainLayout = () => {
-  const [search, setSearch] = useState("");
+  const handleSearch = (text: string) => {
+    // handle search input from Header (adjust implementation as needed)
+    console.log("Search:", text);
+  };
+  
   return (
     <div>
-      <Header onSearch={setSearch} />
+      <Header onSearch={handleSearch} />
 
       <main>
-        <Outlet context={{ search }} /> 
+        <Outlet  /> 
       </main>
 
       <Footer />

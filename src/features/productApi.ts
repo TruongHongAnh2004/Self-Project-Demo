@@ -19,12 +19,12 @@ export const getProductBySort = async (order: "asc" | "desc") => {
 };
 
 
-//sắp xếp theo brand
-export const getProductByCategory = async (brand: string) => {
-  const res = await fetch(`https://dummyjson.com/products/search?q=${brand}`);
-  const data = await res.json();
-  return data.products;
-};
+// //sắp xếp theo brand
+// export const getProductByCategory = async (brand: string) => {
+//   const res = await fetch(`https://dummyjson.com/products/search?q=${brand}`);
+//   const data = await res.json();
+//   return data.products;
+// };
 
 //tìm kiếm trên thanh 
 export const getProductBySearch = async (search: string) => {
