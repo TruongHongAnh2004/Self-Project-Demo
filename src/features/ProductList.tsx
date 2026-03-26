@@ -37,12 +37,13 @@ import { setBrands, setProducts, setSort } from "./productSlice";
 
 
 function ProductList() {
+  //render → fetch data → filter/sort lại.
   const search = useSelector((state: RootState) => state.products.search);
   const products = useSelector((state: RootState) => state.products.products);
   const sort = useSelector((state: RootState) => state.products.sort);
   const brands = useSelector((state: RootState) => state.products.brands);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const filteredProducts = products
     .filter((p) => {
       if (!search || typeof search != "string") return true;
@@ -59,11 +60,11 @@ function ProductList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getProducts();
-      dispatch(setProducts(data));
+      const data = await getProducts(); // gọi API lấy danh sách sản phẩm xong
+      dispatch(setProducts(data)); //Cập nhật kho dữ liệu chung
     };
 
-    fetchData();
+    fetchData(); // redux update -> render (product có data)
   }, [dispatch]);
 
   return (
